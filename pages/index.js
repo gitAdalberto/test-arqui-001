@@ -102,7 +102,14 @@ export default function Home() {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [data]);
+  },);
+
+  useEffect(() => {
+    // Solo actualizar el gráfico si los datos han cambiado
+    if (data.length > 0) {
+      updateChart(data); // Actualiza el gráfico con los datos actuales
+    }
+  }, [data]); // Este effect se ejecutará cada vez que `data` cambie
 
   const latest = data[0];
 
