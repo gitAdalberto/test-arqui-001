@@ -120,8 +120,6 @@ export default function Home() {
   };
   
   const chartOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
     plugins: {
       legend: {
         labels: {
