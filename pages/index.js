@@ -119,8 +119,6 @@ export default function Home() {
     return guatemalaDate.toLocaleString('es-GT');
   };
   
-  
-
   return (
     <div>
 

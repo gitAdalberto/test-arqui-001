@@ -25,6 +25,10 @@ body {
   
 }
 
+body {
+  background-color: #160428;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -45,13 +49,11 @@ a {
 
 .chart{
   margin: 1rem;
-  background-color: #000;
-  width: 100%;
-  max-width: 100%;
-  height: 600px;
-  margin: 0 auto;
-  justify-content: center;
-  display: flex;
+  background-color: #160428;
+  width: 70%;
+  max-width: 90%;
+  height: auto;
+  margin: 1rem auto;
   justify-content: center;
 }
 
