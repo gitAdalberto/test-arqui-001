@@ -45,7 +45,7 @@ export default function Home() {
 
   // Función para obtener los datos desde la tabla
   const fetchData = async () => {
-    const { data, error } = await supabase.rpc('get_sensor_data_local');
+    const { data, error } = await supabase.rpc('get_sensor_data_local').limit(100);
 
     if (error) {
       console.error('Error fetching data hola mundo: ', error);
@@ -56,7 +56,7 @@ export default function Home() {
 
   // Función para actualizar el gráfico
   const updateChart = (newData) => {
-    const latestData = newData.slice(0, 30); // Solo los últimos 30 datos
+    const latestData = newData.slice(0, 100); // Solo los últimos 30 datos
   
     setChartData((prevChartData) => {
       const newLabels = latestData.map(item => getGuatemalaTimeString(item.created_at_local));
