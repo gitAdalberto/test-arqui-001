@@ -1,0 +1,19 @@
+.sensor {
+  background-color: #3b0953;
+  margin: 1rem;
+  padding: 1rem;
+  display: inline-block; /* <-- Esto es clave */
+  border-radius: 8px; /* (opcional para estética) */
+  color: white; /* para mejor contraste si lo necesitas */
+}
+.sensor:hover{
+  background-color: #ffffff;
+  color: #3b0953;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sensor h2{
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: left;
+}

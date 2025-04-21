@@ -1,0 +1,15 @@
+.alertCard{
+    background-color: #840000; 
+    color: #fff;
+    padding: 1rem; 
+    margin: 1rem;
+    border-radius: 8px;
+    display: inline-block;
+    width: 90%;    
+}
+
+.alertCard:hover{
+    background-color: #ffffff;
+    color: #510101;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }

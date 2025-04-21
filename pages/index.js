@@ -3,6 +3,15 @@ import { createClient } from '@supabase/supabase-js';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, Title, Tooltip, Legend, LineElement, PointElement, CategoryScale, LinearScale } from 'chart.js';
 
+import SensorCard from './src/componentes/SensorCard';
+import TopSection from './src/componentes/TopSection';
+import Table from './src/componentes/Table';
+import AlertCard from './src/componentes/AlertCard';
+import CriticalDataButton from './src/componentes/CriticalDataButton';
+
+const TEMP_CRITICA = 35; // temperatura crítica en °C
+const HUM_CRITICA = 80;  // humedad crítica en %
+
 // Registrar los componentes de Chart.js
 ChartJS.register(Title, Tooltip, Legend, LineElement, PointElement, CategoryScale, LinearScale);
 
@@ -36,13 +45,10 @@ export default function Home() {
 
   // Función para obtener los datos desde la tabla
   const fetchData = async () => {
-    const { data, error } = await supabase
-      .from('sensor_data')
-      .select('*')
-      .order('created_at', { ascending: false });
+    const { data, error } = await supabase.rpc('get_sensor_data_local');
 
     if (error) {
-      console.error('Error fetching data: ', error);
+      console.error('Error fetching data hola mundo: ', error);
     } else {
       setData(data);
     }
@@ -51,7 +57,7 @@ export default function Home() {
   // Función para actualizar el gráfico
   const updateChart = (newData) => {
     setChartData((prevChartData) => {
-      const newLabels = newData.map(item => new Date(item.created_at).toLocaleTimeString());
+      const newLabels = newData.map(item => getGuatemalaTimeString(item.created_at_local));
       const newTemperatures = newData.map(item => item.temperatura);
       const newHumidity = newData.map(item => item.humedad);
 
@@ -95,36 +101,45 @@ export default function Home() {
     };
   }, [data]);
 
+  const latest = data[0];
+
+  const getGuatemalaTimeString = (utcString) => {
+    const dateUTC = new Date(utcString);
+    const guatemalaDate = new Date(dateUTC.getTime() - 6 * 60 * 60 * 1000);
+    return guatemalaDate.toLocaleString('es-GT');
+  };
+  
   return (
     <div>
-      <h1>Datos del Sensor</h1>
-      
-    
+
+      <TopSection></TopSection>
 
       {/* Mostrar el gráfico */}
-      <div>
+      <div className='chart'>
         <Line data={chartData} />
       </div>
 
       {/* Tabla de datos */}
-      <table>
-        <thead>
-          <tr>
-            <th>Temperatura (°C)</th>
-            <th>Humedad (%)</th>
-            <th>Fecha</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((item) => (
-            <tr key={item.id}>
-              <td>{item.temperatura}</td>
-              <td>{item.humedad}</td>
-              <td>{new Date(item.created_at).toLocaleString()}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className='sensor-table'>
+        <div className='leftSection'>
+          {latest && (
+            <SensorCard 
+            latest={latest}
+            getGuatemalaTimeString={getGuatemalaTimeString}>
+            </SensorCard>
+          )}
+          
+          {
+            latest && (latest.temperatura > TEMP_CRITICA || latest.humedad > HUM_CRITICA) && (
+              <AlertCard latest={latest}></AlertCard>
+            )
+          }
+          <CriticalDataButton></CriticalDataButton>
+        </div>
+        <Table 
+        data={data} 
+        getGuatemalaTimeString={getGuatemalaTimeString}></Table>
+      </div>
     </div>
   );
 }
