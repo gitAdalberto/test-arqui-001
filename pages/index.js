@@ -119,6 +119,40 @@ export default function Home() {
     return guatemalaDate.toLocaleString('es-GT');
   };
   
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        labels: {
+          color: '#fff'
+        }
+      },
+      tooltip: {
+        titleColor: '#fff',
+        bodyColor: '#fff'
+      }
+    },
+    scales: {
+      x: {
+        ticks: {
+          color: '#fff'
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.1)'
+        }
+      },
+      y: {
+        ticks: {
+          color: '#fff'
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.1)'
+        }
+      }
+    }
+  };
+
   return (
     <div>
 
@@ -126,7 +160,7 @@ export default function Home() {
 
       {/* Mostrar el gráfico */}
       <div className='chart'>
-        <Line data={chartData} />
+        <Line data={chartData} options={chartOptions}/>
       </div>
 
       {/* Tabla de datos */}
