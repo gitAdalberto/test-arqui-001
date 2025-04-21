@@ -109,24 +109,6 @@ export default function Home() {
     return guatemalaDate.toLocaleString('es-GT');
   };
   
-  const chartOptions = {
-    responsive: true,
-    plugins: {
-      legend: { position: 'top' },
-      title: {
-        display: true,
-        text: 'Temperatura y Humedad',
-      },
-    },
-    scales: {
-      x: {
-        ticks: {
-          autoSkip: true,
-          maxTicksLimit: 6, // Reduce la cantidad de etiquetas visibles
-        },
-      },
-    },
-  };
   
 
   return (
@@ -158,7 +140,6 @@ export default function Home() {
         </div>
         <Table 
         data={data} 
-        chartOptions={chartOptions}
         getGuatemalaTimeString={getGuatemalaTimeString}></Table>
       </div>
     </div>
