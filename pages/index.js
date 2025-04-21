@@ -56,11 +56,13 @@ export default function Home() {
 
   // Función para actualizar el gráfico
   const updateChart = (newData) => {
+    const latestData = newData.slice(0, 30); // Solo los últimos 30 datos
+  
     setChartData((prevChartData) => {
-      const newLabels = newData.map(item => getGuatemalaTimeString(item.created_at_local));
-      const newTemperatures = newData.map(item => item.temperatura);
-      const newHumidity = newData.map(item => item.humedad);
-
+      const newLabels = latestData.map(item => getGuatemalaTimeString(item.created_at_local));
+      const newTemperatures = latestData.map(item => item.temperatura);
+      const newHumidity = latestData.map(item => item.humedad);
+  
       return {
         labels: newLabels,
         datasets: [
@@ -69,7 +71,8 @@ export default function Home() {
         ]
       };
     });
-  }
+  };
+  
 
   // Efecto para suscribirse a los cambios en la tabla `sensor_data`
   useEffect(() => {
