@@ -69,7 +69,7 @@ export default function Home() {
         ]
       };
     });
-  };
+  }
 
   // Efecto para suscribirse a los cambios en la tabla `sensor_data`
   useEffect(() => {
@@ -109,6 +109,26 @@ export default function Home() {
     return guatemalaDate.toLocaleString('es-GT');
   };
   
+  const chartOptions = {
+    responsive: true,
+    plugins: {
+      legend: { position: 'top' },
+      title: {
+        display: true,
+        text: 'Temperatura y Humedad',
+      },
+    },
+    scales: {
+      x: {
+        ticks: {
+          autoSkip: true,
+          maxTicksLimit: 6, // Reduce la cantidad de etiquetas visibles
+        },
+      },
+    },
+  };
+  
+
   return (
     <div>
 
@@ -138,6 +158,7 @@ export default function Home() {
         </div>
         <Table 
         data={data} 
+        chartOptions={chartOptions}
         getGuatemalaTimeString={getGuatemalaTimeString}></Table>
       </div>
     </div>

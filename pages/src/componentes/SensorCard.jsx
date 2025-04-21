@@ -2,6 +2,10 @@ import React from 'react';
 import styles from './SensorCard.module.css';
 
 export default function SensorCard({latest, getGuatemalaTimeString}){
+    if(!latest){
+        return <p>sensor Sin datos disponibles</p>;
+    }
+
     return (
         <div className={styles.sensor}>
         <h2>Último Registro</h2>

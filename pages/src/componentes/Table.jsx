@@ -1,6 +1,9 @@
 import React from 'react';
 
 export default function Table ({data, getGuatemalaTimeString}){
+  if(!data){
+    return <p>Sin datos disponibles</p>;
+  }
     return (
         <table >
         <thead>
